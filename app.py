@@ -5,14 +5,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    if name not in url:
-        return "player doesn't exist"
-    else: 
-
     name = request.args.get("player_name", "Lebron James")
     url = f"https://www.thesportsdb.com/api/v1/json/123/searchplayers.php?p={name}"
     player_response = requests.get(url)
     data = player_response.json()
+
+    if data["player"] is None:
+        return "Player not found."
 
     player = data["player"][0]["strPlayer"]
     team = data["player"][0]["strTeam"]
