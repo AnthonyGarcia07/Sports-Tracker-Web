@@ -4,12 +4,15 @@
     <title>Sports Tracker</title>
 </head>
 <body> 
+    <!-- search form that sends player name to Flask via GET request -->
     <form action="/" method="GET">
+        <!-- input creates the text box, name="player_name" is how Flask identifies what the user typed, placeholder is the hint text shown before the user types anything -->
         <input type="text" name="player_name" placeholder="Search for a player...">
+        <!-- creates a submit button that triggers the form to send the player name to Flask-->
         <button type="submit">Search</button>
     </form>
 
-
+    <!-- displays the players name, team, sport they play, and position -->
     <h1>{{ player }}</h1>
     <p>{{ team }}</p>
     <p>{{ sport }}</p>
