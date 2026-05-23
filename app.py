@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import requests 
+import sqlite3
 
 app = Flask(__name__)
 
@@ -24,12 +25,44 @@ def home():
     sport = data["player"][0]["strSport"]
     position = data["player"][0]["strPosition"]
 
+    # opens the database file (creates it if it doesn't exist)
+    conn = sqlite3.connect("sports.db")
+    # the tool you use to run sql commands
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO searches (player_name, team, sport, position)
+        VALUES (?, ?, ?, ?)
+    """, (player, team, sport, position))
+    
+    conn.commit()
+    conn.close()
+
 
     # this returns the render template. so it returns the players name, team, sport, and position
     return render_template("index.html", player=player, team=team, sport=sport, position=position)
 
-if __name__ == "__main__":
+
+
+def init_db():
+    # opens the database file (creates it if it doesn't exist)
+    conn = sqlite3.connect("sports.db")
+    # the tool you use to run sql commands
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS searches (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            player_name TEXT,
+            team TEXT,
+            sport TEXT,
+            position TEXT
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+if __name__ == "__main__": 
+    init_db()
     app.run(debug=True)
-
-
-
