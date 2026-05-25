@@ -17,5 +17,13 @@
     <p>{{ team }}</p>
     <p>{{ sport }}</p>
     <p>{{ position }}</p>
+
+    
+    <h2>Search History</h2>
+    <!-- for loop that loops through every row in history from the database -->
+    {% for search in history %}
+        <p> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
+    {% endfor %}
+    <!-- ends the for loop -->
 </body>
 </html>

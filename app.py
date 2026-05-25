@@ -30,17 +30,24 @@ def home():
     # the tool you use to run sql commands
     cursor = conn.cursor()
 
+    # insert the new search, we use ? for the values for security reasons, we dont want a malicious user typing SQL code in the search box,
+    # so the ? placeholders tell SQLite "treat these as pure data, never as commands"
     cursor.execute("""
         INSERT INTO searches (player_name, team, sport, position)
         VALUES (?, ?, ?, ?)
     """, (player, team, sport, position))
-    
+    # saves the inserted data to the database permanently 
     conn.commit()
+
+    # reads all searches from the searches table
+    cursor.execute("SELECT * FROM searches")
+    # retrieves all the rows that cursor.execute returned and stores them as a list of tuples in python
+    history = cursor.fetchall()
+    # closes the connection
     conn.close()
 
-
     # this returns the render template. so it returns the players name, team, sport, and position
-    return render_template("index.html", player=player, team=team, sport=sport, position=position)
+    return render_template("index.html", player=player, team=team, sport=sport, position=position, history=history)
 
 
 
@@ -50,6 +57,9 @@ def init_db():
     # the tool you use to run sql commands
     cursor = conn.cursor()
 
+    # creates the searches table if it doesn't already exist
+    # id is the unique identifier, automatically increments with each new search
+    # the rest are the columns that store the player data as text
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS searches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,10 +69,14 @@ def init_db():
             position TEXT
         )
     """)
+
+    #saves the table creation to the database
     conn.commit()
+    #closes the connection
     conn.close()
 
 
 if __name__ == "__main__": 
+    # this allows function init_db to run first, which is essential because we need to create the table first
     init_db()
     app.run(debug=True)
