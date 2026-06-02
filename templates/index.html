@@ -2,8 +2,13 @@
 <html>
 <head>
     <title>Sports Tracker</title>
+    <!-- creates an html tag that connects an external file to my page, tells the browser its a stylesheet, points to the location of the file,
+     generates the correct url path to my file, and then tells flask to look for the static folder and style.css file inside of it-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body> 
+    <div class="container"> 
+
     <!-- search form that sends player name to Flask via GET request -->
     <form action="/" method="GET">
         <!-- input creates the text box, name="player_name" is how Flask identifies what the user typed, placeholder is the hint text shown before the user types anything -->
@@ -25,5 +30,7 @@
         <p> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
     {% endfor %}
     <!-- ends the for loop -->
+
+    </div>
 </body>
 </html>
