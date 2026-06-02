@@ -8,9 +8,10 @@
 </head>
 <body> 
     <div class="container"> 
+    <h1>Sports Tracker</h1>
 
     <!-- search form that sends player name to Flask via GET request -->
-    <form action="/" method="GET">
+    <form class="search-form" action="/" method="GET">
         <!-- input creates the text box, name="player_name" is how Flask identifies what the user typed, placeholder is the hint text shown before the user types anything -->
         <input type="text" name="player_name" placeholder="Search for a player...">
         <!-- creates a submit button that triggers the form to send the player name to Flask-->
@@ -18,11 +19,12 @@
     </form>
 
     <!-- displays the players name, team, sport they play, and position -->
-    <h1>{{ player }}</h1>
+<div class="player-card">
+    <h2>{{ player }}</h2>
     <p>{{ team }}</p>
     <p>{{ sport }}</p>
     <p>{{ position }}</p>
-
+</div>
     
     <h2>Search History</h2>
     <!-- for loop that loops through every row in history from the database -->
