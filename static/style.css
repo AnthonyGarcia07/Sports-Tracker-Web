@@ -52,3 +52,18 @@ body {
     margin-bottom: 30px;
     border-left: 4px solid #e94560;
 }
+
+.history-item {
+    background-color: #0f3460;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.container h2 {
+    color: white;
+    border-bottom: 2px solid #e94560;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
