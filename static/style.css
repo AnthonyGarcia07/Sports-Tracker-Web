@@ -53,6 +53,14 @@ body {
     border-left: 4px solid #e94560;
 }
 
+.player-card img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
 .history-item {
     background-color: #0f3460;
     padding: 10px 15px;

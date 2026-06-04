@@ -19,11 +19,12 @@ def home():
     if data["player"] is None:
         return "Player not found."
 
-    # stores the players name, team, sport, and position
+    # stores the players name, team, sport, position, and photo
     player = data["player"][0]["strPlayer"]
     team = data["player"][0]["strTeam"]
     sport = data["player"][0]["strSport"]
     position = data["player"][0]["strPosition"]
+    cutout = data["player"][0]["strCutout"]
 
     # opens the database file (creates it if it doesn't exist)
     conn = sqlite3.connect("sports.db")
@@ -46,8 +47,8 @@ def home():
     # closes the connection
     conn.close()
 
-    # this returns the render template. so it returns the players name, team, sport, and position
-    return render_template("index.html", player=player, team=team, sport=sport, position=position, history=history)
+    # this returns the render template. so it returns the players name, team, sport, position, and photo
+    return render_template("index.html", player=player, team=team, sport=sport, position=position, cutout=cutout, history=history)
 
 
 
