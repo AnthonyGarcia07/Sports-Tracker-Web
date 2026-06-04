@@ -40,8 +40,8 @@ def home():
     # saves the inserted data to the database permanently 
     conn.commit()
 
-    # reads all searches from the searches table
-    cursor.execute("SELECT * FROM searches")
+    # reads all searches from the searches table, shows only newest searches first and returns the last 10
+    cursor.execute("SELECT * FROM searches ORDER BY id DESC LIMIT 10")
     # retrieves all the rows that cursor.execute returned and stores them as a list of tuples in python
     history = cursor.fetchall()
     # closes the connection

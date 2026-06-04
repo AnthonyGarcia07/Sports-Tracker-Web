@@ -19,21 +19,25 @@
     </form>
 
     <!-- displays the players name, team, sport they play, and position -->
-<div class="player-card">
-    <h2>{{ player }}</h2>
-    <p>{{ team }}</p>
-    <p>{{ sport }}</p>
-    <p>{{ position }}</p>
-    <!-- src tells the browser where to find the image and alt is text that shows if the image fails to load-->
-    <img src="{{ cutout }}" alt="Player Photo">
-</div>
+<div class="content-row"> 
+    <div class="player-card">
+        <h2>{{ player }}</h2>
+        <p>{{ team }}</p>
+        <p>{{ sport }}</p>
+        <p>{{ position }}</p>
+        <!-- src tells the browser where to find the image and alt is text that shows if the image fails to load-->
+        <img src="{{ cutout }}" alt="Player Photo">
+    </div>
     
-    <h2>Search History</h2>
-    <!-- for loop that loops through every row in history from the database -->
-    {% for search in history %}
-        <p class="history-item"> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
-    {% endfor %}
-    <!-- ends the for loop -->
+    <div class="history-section"> 
+        <h2>Search History</h2>
+        <!-- for loop that loops through every row in history from the database -->
+        {% for search in history %}
+            <p class="history-item"> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
+        {% endfor %}
+        <!-- ends the for loop -->
+    </div>
+</div>
 
     </div>
 </body>
