@@ -9,6 +9,7 @@
 <body> 
     <div class="container"> 
     <h1>Sports Tracker</h1>
+    <p class="subtitle"> Search for any athlete and instantly get their team, sport, and position</p>
 
     <!-- search form that sends player name to Flask via GET request -->
     <form class="search-form" action="/" method="GET">
@@ -36,6 +37,26 @@
             <p class="history-item"> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
         {% endfor %}
         <!-- ends the for loop -->
+    </div>
+</div>
+
+<!--creates a frequently asked questions section and classes are made for style options in css-->
+<div class="faq-section">
+    <h2> Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>What sports are supported?</h3>
+        <p> We support a wide range of sports including Soccer, Basketball, Baseball, and more via TheSportsDB API.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>How do I search for a player?</h3>
+        <p>Simply type a player's name in the search bar above and hit Search. Results will appear instantly</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Why is my player not showing up?</h3>
+        <p>The player may not be showing up in TheSportsDB database. Try searching for their full name.</p>
     </div>
 </div>
 

@@ -17,6 +17,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+.subtitle {
+    text-align: center;
+    color: #a8a8b3;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
 .container h1 {
     text-align: center;
     color: white;
@@ -89,4 +96,25 @@ body {
     flex: 2;
     max-height: 490px;
     overflow-y: auto;
+}
+
+.faq-section {
+    margin-top: 60px;
+}
+
+.faq-item {
+    background-color: #0f3460;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid #e94560;
+}
+
+.faq-item h3 {
+    color: white;
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    color: #a8a8b3;
 }
