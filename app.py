@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
-import requests 
-import sqlite3
+from flask import Flask, render_template, request #Flask framework for building the web app
+import requests   # for making HTTP requests to the TheSportsDB API
+import sqlite3   # built in Python library for working with SQLite databases
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def home():
     # closes the connection
     conn.close()
 
-    # this returns the render template. so it returns the players name, team, sport, position, and photo
+    # this returns the render template. so it returns the players name, team, sport, position, photo, and search history
     return render_template("index.html", player=player, team=team, sport=sport, position=position, cutout=cutout, history=history)
 
 

@@ -1,20 +1,22 @@
+/* styles the entire page - background, text color, font, and layout */
 body {
-    background-image: url(https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDdiNTFsYjZoYXN4MWticTF1Y2h5Nm44bXpkYTJrZHg1ZmYxZGprOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/y4HheYXoGlFT5l7PQ9/giphy.gif);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    background-image: url(https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDdiNTFsYjZoYXN4MWticTF1Y2h5Nm44bXpkYTJrZHg1ZmYxZGprOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/y4HheYXoGlFT5l7PQ9/giphy.gif); /* sets a gif as the background image */
+    background-size: cover; /* makes the gif fill the entire screen */
+    background-position: center; /* centers the background image */
+    background-attachment: fixed; /* keeps the background fixed while scrolling */
+    color: white; /* makes all text white by default */ 
+    font-family: Arial, sans-serif; /* sets the font for the whole page */ 
+    max-width: 1000px; /* limits how wide the content gets */
+    margin: 0 auto; /* centers the content horizontally on the page */
+    padding: 40px 20px; /* adds breathing room around the content */
 }
 
+/* styles the container part of the html code */
 .container {
-    background-color: #16213e;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background-color: #16213e; /* give the container part a background color */
+    padding: 30px; /* gives space around the content */ 
+    border-radius: 20px; /* gives the border a rounded edge */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* gives the box a shadow of whatever color you choose in your desired area */
 }
 
 .subtitle {

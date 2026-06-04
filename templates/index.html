@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body> 
+    <!-- creates a generic container and assigns it to a resuable label so that I can work with it in CSS-->
     <div class="container"> 
     <h1>Sports Tracker</h1>
+    <!-- class subtitle adds a comment above the search bar explain what the webpage is doing-->
     <p class="subtitle"> Search for any athlete and instantly get their team, sport, and position</p>
 
     <!-- search form that sends player name to Flask via GET request -->
@@ -19,7 +21,8 @@
         <button type="submit">Search</button>
     </form>
 
-    <!-- displays the players name, team, sport they play, and position -->
+    <!-- displays the players name, team, sport they play, position, and the image to said player -->
+     <!-- class content-row uses flexbox to put the player card and history side by side -->
 <div class="content-row"> 
     <div class="player-card">
         <h2>{{ player }}</h2>
