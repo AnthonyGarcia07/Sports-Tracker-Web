@@ -33,10 +33,12 @@
         <img src="{{ cutout }}" alt="Player Photo">
     </div>
     
+    <!-- creates a div/element containers with the class label history-section to target them in css -->
     <div class="history-section"> 
         <h2>Search History</h2>
         <!-- for loop that loops through every row in history from the database -->
         {% for search in history %}
+            <!-- applies the history-item class to each paragraph so CSS can style each search result individually -->
             <p class="history-item"> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
         {% endfor %}
         <!-- ends the for loop -->

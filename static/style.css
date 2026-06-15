@@ -19,104 +19,119 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* gives the box a shadow of whatever color you choose in your desired area */
 }
 
-.subtitle {
-    text-align: center;
-    color: #a8a8b3;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-}
-
+/* styles the h1 header file inside the container, which in this case is the Sports Tracker text */
 .container h1 {
-    text-align: center;
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+    text-align: center; /* centers the text */
+    color: white; /* white color to make the main title stand out */
+    font-size: 2.5rem; /* the size of the main title */
+    margin-bottom: 30px; /* gives space below the text */
+    letter-spacing: 2px; /* the spacing between the letters in the main title */
 }
 
+/* styles the subtitle under the Sports Tracker header */
+.subtitle {
+    text-align: center; /* centers the text */
+    color: #a8a8b3; /* muted grey-white so it stands out less than the main title */
+    margin-bottom: 30px; /* gives space below the text */
+    font-size: 1.3rem; /* the size of the text */
+}
+
+/* styles the entire search form */
 .search-form {
-    text-align: center;
-    margin-bottom: 30px;
+    text-align: center; /* centers the search form */
+    margin-bottom: 30px; /* gives space below the search form */
 }
 
+/* styles the search form input text box */
 .search-form input {
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
+    padding: 10px; /* the space inside the text */ 
+    width: 300px; /* how wide the input text box will be */
+    border-radius: 5px; /* how curved the edges of the text box are */
+    border: none; /* removes the border */
+    font-size: 1rem; /* size of the font inside the input text box */
 }
 
+/* styles the search form button */
 .search-form button {
-    padding: 10px 20px;
-    background-color: #e94560;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    padding: 10px 20px; /* adjusts the height and width of the search form button */
+    background-color: #e94560; /* give the search form button a bright red color */
+    color: white; /* gives the text inside the search form button a white color */
+    border: none; /* removes the border around the button */
+    border-radius: 5px; /* how curved the edges of the button are */
+    cursor: pointer; /* changes the mouse cursor to a pointing hand icon when hovering over the button */
+    font-size: 1rem; /* size of the font inside the search form button */
 }
 
-.player-card {
-    background-color: #0f3460;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    border-left: 4px solid #e94560;
-    flex: 1;
-}
-
-.player-card img {
-    width: 250px;
-    height: 250px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 15px auto;
-}
-
-.history-item {
-    background-color: #0f3460;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-}
-
-.container h2 {
-    color: white;
-    border-bottom: 2px solid #e94560;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
+/* styles the content row part of html, this is used so that we can put the player card and search history side by side, instead of one over the other */
 .content-row {
-    display: flex;
-    gap: 30px;
+    display: flex; /* allows us to put the player card and search history side by side */
+    gap: 30px; /* the gap in pixels between player card and search history */ 
 }
 
+/* styles the player card, which includes the Player Name, Team, Sport, and Position */
+.player-card {
+    background-color: #0f3460; /* chooses the background color for the player card section */ 
+    padding: 20px; /* the space inside the text */
+    border-radius: 10px; /* how curved the edges are inside the player card section */
+    margin-bottom: 30px; /* how much space we want below the player card section */
+    border-left: 4px solid #e94560; /* this applies a 4 px wide, solid line to the left edge of the border, in a vibrant reddish-pink */
+    flex: 1; /* takes up 1 portion of the available space, history section gets 2 portions */
+}
+
+/* styles the image inside of the player card */
+.player-card img {
+    width: 250px; /* the width of the image */
+    height: 250px; /* the hieght of the image */
+    object-fit: contain; /* scales the image to fit inside of the container */
+    display: block; /* images sit in line with text, we change it to block to make the image behave like its own seperate element, therefore centering it properly */
+    margin: 0 auto 15px auto; /* top, right, bottom, left dimensions */
+}
+
+/* styles the history section */
 .history-section {
-    flex: 2;
-    max-height: 490px;
-    overflow-y: auto;
+    flex: 2; /* takes up 2 portions of the available space */
+    max-height: 490px; /* gives the history section 490 pixels of hieght */
+    overflow-y: auto; /* gives the history section a scroll bar instead of displaying all the information at once, making this section look cleaner */
 }
 
+/* styles the history items, (the text inside of the history section) */
+.history-item {
+    background-color: #0f3460; /* gives the container for history-item a blue color */ 
+    padding: 10px 15px; /* adjusts the height and width of the history-item container */
+    border-radius: 5px; /* how curved the edges of the history-item container are */
+    margin-bottom: 5px; /* how much space is given below the history-item container */
+    font-size: 0.9rem; /* the size of the font inside of the container */
+}
+
+/* styles all h2 header files inside of the div class container */
+.container h2 {
+    color: white; /* makes all h2 header files text the color white */
+    border-bottom: 2px solid #e94560; /* adds a 2 pixel wide solid line under the h2 header files that is vibrant reddish-pink */
+    padding-bottom: 10px; /* adds exactly 10 pixels of inner space between the elements content and its bottom border  */
+    margin-bottom: 15px; /* 15 pixels of space below the h2 header files */
+}
+
+/* styles the faq section part of the program */
 .faq-section {
-    margin-top: 60px;
+    margin-top: 60px; /* gives 60 pixels of space above the faq section */
 }
 
+/* styles the faq-item section of html, specifically the header file and the paragraph inside each container */
 .faq-item {
-    background-color: #0f3460;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    border-left: 4px solid #e94560;
+    background-color: #0f3460; /* gives each container in faq-item a blue background color */
+    padding: 20px; /* gives 20 pixels of space inside of each container */
+    border-radius: 10px; /* curves the edges of each container 10 pixels */
+    margin-bottom: 15px; /* gives 15 pixels of space at the bottom of each container in faq-item */
+    border-left: 4px solid #e94560; /* puts a solid line that's 4 pixels wide on the left side of the border that is vibrant reddish-pink */
 }
 
+/* styles specifically the h3 header files in faq-item */
 .faq-item h3 {
-    color: white;
-    margin-bottom: 8px;
+    color: white; /* makes the text color white in each container */
+    margin-bottom: 8px; /* gives the bottom 8 pixels of space for each container in faq-item */
 }
 
+/* styles the paragraph section of faq-item  */
 .faq-item p {
-    color: #a8a8b3;
+    color: #a8a8b3; /* makes the color a light gray for each paragraph */
 }
