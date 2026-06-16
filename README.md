@@ -23,3 +23,9 @@ https://sports-tracker-web.onrender.com
 3. Install dependencies with `pip install -r requirements.txt`
 4. Run the app with `python app.py`
 5. Visit `http://127.0.0.1:5000` in your browser
+
+## Future Improvements
+- Add team search functionality
+- Add more player statistics
+- Add dark mode
+- Add favorites/bookmark feature
