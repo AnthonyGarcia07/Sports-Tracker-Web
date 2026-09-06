@@ -339,6 +339,17 @@ body {
     display: block;
 }
 
+/*
+    Long player names or team names should wrap instead of forcing the page to
+    become wider than the phone screen.
+*/
+.player-name,
+.detail-value,
+.history-player,
+.history-details {
+    overflow-wrap: anywhere;
+}
+
 /* styles the history section */
 .history-section {
     /*
@@ -350,6 +361,36 @@ body {
     max-height: 520px;
     overflow-y: auto;
     padding-right: 4px;
+    /*
+        These two scrollbar properties are supported by Firefox. They keep the
+        scroll area from looking bright against the dark interface while staying
+        small enough for a beginner-friendly stylesheet.
+    */
+    scrollbar-color: rgba(158, 170, 189, 0.55) rgba(7, 17, 31, 0.35);
+    scrollbar-width: thin;
+}
+
+/*
+    WebKit browsers such as Chrome and Edge use these pseudo-elements for
+    scrollbar styling. Only the history scrollbar is targeted so the rest of
+    the browser keeps its normal behavior.
+*/
+.history-section::-webkit-scrollbar {
+    width: 10px;
+}
+
+.history-section::-webkit-scrollbar-track {
+    background-color: rgba(7, 17, 31, 0.35);
+    border-radius: 999px;
+}
+
+.history-section::-webkit-scrollbar-thumb {
+    background-color: rgba(158, 170, 189, 0.55);
+    border-radius: 999px;
+}
+
+.history-section::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(215, 222, 234, 0.7);
 }
 
 /* styles the history items, (the text inside of the history section) */
@@ -407,18 +448,43 @@ body {
 .faq-section {
     /*
         The FAQ sits below the main result area, so it needs a larger top
-        margin than smaller items inside a section.
+        margin than smaller items inside a section. max-width keeps the text
+        comfortably readable even though the main container is wider.
     */
     margin-top: 64px;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* styles the faq-item section of html, specifically the header file and the paragraph inside each container */
 .faq-item {
-    background-color: var(--card-background); /* gives each container in faq-item a blue background color */
-    padding: 20px; /* gives 20 pixels of space inside of each container */
-    border-radius: 10px; /* curves the edges of each container 10 pixels */
-    margin-bottom: 15px; /* gives 15 pixels of space at the bottom of each container in faq-item */
-    border-left: 4px solid var(--accent-color); /* puts a solid line that's 4 pixels wide on the left side of the border that is vibrant reddish-pink */
+    background-color: var(--card-background);
+    /*
+        The FAQ now uses the same soft border style as the player card and
+        history rows. A small top border keeps the accent color present without
+        repeating a heavy stripe on every card.
+    */
+    border: 1px solid var(--soft-border);
+    border-top: 3px solid rgba(233, 69, 96, 0.65);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 14px;
+    /*
+        The transition supports a subtle hover state below. Only color-related
+        properties change, so the cards do not jump or shift on hover.
+    */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/*
+    This hover state gives a little feedback when someone explores the FAQ with
+    a mouse, while keeping the section calm and static.
+*/
+.faq-item:hover {
+    background-color: #162b49;
+    border-color: rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(233, 69, 96, 0.85);
 }
 
 /* styles specifically the h3 header files in faq-item */
@@ -429,7 +495,8 @@ body {
         more neatly inside its card.
     */
     margin: 0 0 8px;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
+    line-height: 1.35;
 }
 
 /* styles the paragraph section of faq-item  */
@@ -440,11 +507,29 @@ body {
         card controlled by the card padding instead of browser defaults.
     */
     margin: 0;
+    line-height: 1.65;
+}
+
+/*
+    This breakpoint stacks only the result area a little earlier than the small
+    phone breakpoint. It prevents the player card and history from becoming
+    squeezed on tablets or narrow laptop windows.
+*/
+@media (max-width: 820px) {
+    .content-row {
+        flex-direction: column;
+    }
+
+    .player-card,
+    .history-section {
+        width: 100%;
+    }
 }
 
 /*
     This small media query adjusts only the page foundation on narrow screens.
-    More detailed responsive layout work can happen in a later stage.
+    It now also includes the approved search and card adjustments that keep the
+    full page comfortable on phones.
 */
 @media (max-width: 700px) {
     body {
@@ -478,19 +563,6 @@ body {
     }
 
     /*
-        The results stack on smaller screens so the player card and history do
-        not become cramped side by side.
-    */
-    .content-row {
-        flex-direction: column;
-    }
-
-    .player-card,
-    .history-section {
-        width: 100%;
-    }
-
-    /*
         On narrow screens left-aligned values are easier to read because there
         is less horizontal space for a two-column detail row.
     */
@@ -502,5 +574,40 @@ body {
         display: block;
         text-align: left;
         margin-top: 2px;
+    }
+
+    /*
+        A shorter photo area saves vertical space on phones while object-fit
+        still keeps the player image from being cropped.
+    */
+    .player-photo {
+        min-height: 220px;
+    }
+
+    .player-card img {
+        height: 210px;
+    }
+}
+
+/*
+    Very small screens need slightly tighter spacing so the interface still
+    feels comfortable without requiring horizontal scrolling.
+*/
+@media (max-width: 480px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .player-card,
+    .faq-item {
+        padding: 18px;
+    }
+
+    .faq-section {
+        margin-top: 48px;
     }
 }

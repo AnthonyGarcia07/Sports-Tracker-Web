@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--
+        This viewport tag tells mobile browsers to use the real device width
+        when calculating CSS media queries. Without it, a phone or device
+        preview may pretend the page is much wider, which prevents responsive
+        breakpoints like max-width: 820px from activating correctly.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Tracker</title>
     <!-- creates an html tag that connects an external file to my page, tells the browser its a stylesheet, points to the location of the file,
      generates the correct url path to my file, and then tells flask to look for the static folder and style.css file inside of it-->
