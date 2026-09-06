@@ -218,48 +218,175 @@ body {
 
 /* styles the content row part of html, this is used so that we can put the player card and search history side by side, instead of one over the other */
 .content-row {
-    display: flex; /* allows us to put the player card and search history side by side */
-    gap: 32px; /* the gap in pixels between player card and search history */ 
     /*
-        This gives the results area a little more distance from the header and
-        search area, creating a clearer page rhythm.
+        Flexbox keeps the player card and history beside each other on wider
+        screens. align-items: flex-start prevents the shorter card from
+        stretching just because the history list may be taller.
     */
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
     margin-top: 8px;
 }
 
 /* styles the player card, which includes the Player Name, Team, Sport, and Position */
 .player-card {
-    background-color: var(--card-background); /* chooses the background color for the player card section */ 
-    padding: 20px; /* the space inside the text */
-    border-radius: 10px; /* how curved the edges are inside the player card section */
-    margin-bottom: 30px; /* how much space we want below the player card section */
-    border-left: 4px solid var(--accent-color); /* this applies a 4 px wide, solid line to the left edge of the border, in a vibrant reddish-pink */
-    flex: 1; /* takes up 1 portion of the available space, history section gets 2 portions */
+    background-color: var(--card-background);
+    /*
+        This subtle border replaces some of the visual weight from the older
+        strong accent stripe while still separating the card from the panel.
+    */
+    border: 1px solid var(--soft-border);
+    border-radius: 10px;
+    padding: 24px;
+    /*
+        The player card keeps one share of the row, while the history section
+        keeps more space. min-width prevents the card from becoming unreadable
+        before the responsive layout stacks.
+    */
+    flex: 1;
+    min-width: 280px;
+}
+
+/*
+    This wrapper keeps the player's text grouped together above the image.
+    It also gives the card a simple vertical rhythm.
+*/
+.player-info {
+    margin-bottom: 22px;
+}
+
+/*
+    The player's name is the main result, so this rule overrides the general
+    h2 divider style and lets the name stand on its own.
+*/
+.player-card .player-name {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 18px;
+    font-size: 1.75rem;
+}
+
+/*
+    The details group keeps team, sport, and position connected as one set of
+    facts instead of leaving them as unrelated lines.
+*/
+.player-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*
+    Each detail row uses Flexbox so the label and value line up clearly.
+    justify-content: space-between pushes the value to the right when there is
+    room, but the row can still wrap naturally if the text is long.
+*/
+.player-detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/*
+    Labels are quieter than the values because they explain the data but are
+    not the main information the user searched for.
+*/
+.detail-label {
+    color: var(--muted-text);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/*
+    The value is stronger than the label because it is the actual player data.
+    On wide screens it aligns to the right edge for a tidy two-column feel.
+*/
+.detail-value {
+    color: var(--heading-color);
+    font-weight: 600;
+    text-align: right;
+}
+
+/*
+    The photo wrapper creates a consistent image area so different player
+    cutouts feel contained inside the same card design.
+*/
+.player-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 260px;
+    background-color: rgba(7, 17, 31, 0.38);
+    border: 1px solid var(--soft-border);
+    border-radius: 8px;
+    padding: 16px;
 }
 
 /* styles the image inside of the player card */
 .player-card img {
-    width: 250px; /* the width of the image */
-    height: 250px; /* the hieght of the image */
-    object-fit: contain; /* scales the image to fit inside of the container */
-    display: block; /* images sit in line with text, we change it to block to make the image behave like its own seperate element, therefore centering it properly */
-    margin: 0 auto 15px auto; /* top, right, bottom, left dimensions */
+    /*
+        max-width keeps large images from overflowing the card, while the fixed
+        height keeps the photo area stable from player to player.
+    */
+    max-width: 100%;
+    height: 250px;
+    object-fit: contain;
+    display: block;
 }
 
 /* styles the history section */
 .history-section {
-    flex: 2; /* takes up 2 portions of the available space */
-    max-height: 490px; /* gives the history section 490 pixels of hieght */
-    overflow-y: auto; /* gives the history section a scroll bar instead of displaying all the information at once, making this section look cleaner */
+    /*
+        The history needs more horizontal room because each row contains
+        multiple pieces of text. Keeping it scrollable preserves the current
+        behavior when there are many saved searches.
+    */
+    flex: 2;
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 4px;
 }
 
 /* styles the history items, (the text inside of the history section) */
 .history-item {
-    background-color: var(--card-background); /* gives the container for history-item a blue color */ 
-    padding: 10px 15px; /* adjusts the height and width of the history-item container */
-    border-radius: 5px; /* how curved the edges of the history-item container are */
-    margin-bottom: 5px; /* how much space is given below the history-item container */
-    font-size: 0.9rem; /* the size of the font inside of the container */
+    background-color: var(--card-background);
+    border: 1px solid var(--soft-border);
+    border-radius: 8px;
+    /*
+        Using block layout here keeps each history entry simple: player name
+        on top, supporting details underneath.
+    */
+    display: block;
+    padding: 13px 15px;
+    margin-bottom: 10px;
+}
+
+/*
+    The searched player name is the most important part of a history row, so
+    it gets its own line and stronger weight.
+*/
+.history-player {
+    display: block;
+    color: var(--heading-color);
+    font-size: 0.98rem;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+/*
+    The details stay smaller and muted so the user can scan names first, then
+    read the extra context only when needed.
+*/
+.history-details {
+    display: block;
+    color: var(--muted-text);
+    font-size: 0.88rem;
+    line-height: 1.4;
 }
 
 /* styles all h2 header files inside of the div class container */
@@ -348,5 +475,32 @@ body {
 
     .search-form button {
         width: 100%;
+    }
+
+    /*
+        The results stack on smaller screens so the player card and history do
+        not become cramped side by side.
+    */
+    .content-row {
+        flex-direction: column;
+    }
+
+    .player-card,
+    .history-section {
+        width: 100%;
+    }
+
+    /*
+        On narrow screens left-aligned values are easier to read because there
+        is less horizontal space for a two-column detail row.
+    */
+    .player-detail {
+        display: block;
+    }
+
+    .detail-value {
+        display: block;
+        text-align: left;
+        margin-top: 2px;
     }
 }

@@ -21,29 +21,71 @@
         <button type="submit">Search</button>
     </form>
 
-    <!-- displays the players name, team, sport they play, position, and the image to said player -->
-     <!-- class content-row uses flexbox to put the player card and history side by side -->
-<div class="content-row"> 
-    <div class="player-card">
-        <h2>{{ player }}</h2>
-        <p>{{ team }}</p>
-        <p>{{ sport }}</p>
-        <p>{{ position }}</p>
-        <!-- src tells the browser where to find the image and alt is text that shows if the image fails to load-->
-        <img src="{{ cutout }}" alt="Player Photo">
+    <!--
+        The content row keeps the current player result and the search history
+        beside each other on larger screens. CSS can stack these sections later
+        on small screens without changing the Flask data.
+    -->
+    <div class="content-row"> 
+        <!--
+            The player card still uses the same player, team, sport, position,
+            and image values from app.py. The extra HTML groups the text so the
+            player's name is strongest and the details are easier to scan.
+        -->
+        <div class="player-card">
+            <div class="player-info">
+                <h2 class="player-name">{{ player }}</h2>
+
+                <!--
+                    Each detail row adds a simple label next to the existing
+                    value. This makes the card clearer without adding any new
+                    information or backend logic.
+                -->
+                <div class="player-details">
+                    <p class="player-detail">
+                        <span class="detail-label">Team</span>
+                        <span class="detail-value">{{ team }}</span>
+                    </p>
+                    <p class="player-detail">
+                        <span class="detail-label">Sport</span>
+                        <span class="detail-value">{{ sport }}</span>
+                    </p>
+                    <p class="player-detail">
+                        <span class="detail-label">Position</span>
+                        <span class="detail-value">{{ position }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <!--
+                The image still comes directly from TheSportsDB. Wrapping it in
+                a div gives CSS a clean place to control the image area.
+            -->
+            <div class="player-photo">
+                <img src="{{ cutout }}" alt="Player Photo">
+            </div>
+        </div>
+        
+        <!--
+            The search history section still loops through the same rows from
+            SQLite. Only the HTML presentation changes so each previous search
+            has a clearer primary line and secondary details.
+        -->
+        <div class="history-section"> 
+            <h2>Search History</h2>
+            {% for search in history %}
+                <!--
+                    search[1] is the player name. search[2], search[3], and
+                    search[4] are the team, sport, and position saved by the
+                    existing Flask route.
+                -->
+                <div class="history-item">
+                    <strong class="history-player">{{ search[1] }}</strong>
+                    <span class="history-details">{{ search[2] }} &bull; {{ search[3] }} &bull; {{ search[4] }}</span>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    
-    <!-- creates a div/element containers with the class label history-section to target them in css -->
-    <div class="history-section"> 
-        <h2>Search History</h2>
-        <!-- for loop that loops through every row in history from the database -->
-        {% for search in history %}
-            <!-- applies the history-item class to each paragraph so CSS can style each search result individually -->
-            <p class="history-item"> {{ search[1] }} - {{ search [2] }} - {{ search [3] }} - {{ search [4]}} </p>
-        {% endfor %}
-        <!-- ends the for loop -->
-    </div>
-</div>
 
 <!--creates a frequently asked questions section and classes are made for style options in css-->
 <div class="faq-section">
