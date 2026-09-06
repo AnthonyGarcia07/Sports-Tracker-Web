@@ -13,107 +13,151 @@
      generates the correct url path to my file, and then tells flask to look for the static folder and style.css file inside of it-->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body> 
-    <!-- creates a generic container and assigns it to a resuable label so that I can work with it in CSS-->
-    <div class="container"> 
-    <h1>Sports Tracker</h1>
-    <!-- class subtitle adds a comment above the search bar explain what the webpage is doing-->
-    <p class="subtitle"> Search for any athlete and instantly get their team, sport, and position</p>
+<body>
+    <!--
+        This full-width header section creates the top page region for the app
+        identity and search action. The section can span the browser, while the
+        inner wrapper keeps the actual content from becoming too wide.
+    -->
+    <header class="page-section header-section">
+        <div class="section-inner">
+            <h1>Sports Tracker</h1>
+            <!-- class subtitle adds a comment above the search bar explain what the webpage is doing-->
+            <p class="subtitle"> Search for any athlete and instantly get their team, sport, and position</p>
 
-    <!-- search form that sends player name to Flask via GET request -->
-    <form class="search-form" action="/" method="GET">
-        <!-- input creates the text box, name="player_name" is how Flask identifies what the user typed, placeholder is the hint text shown before the user types anything -->
-        <input type="text" name="player_name" placeholder="Search for a player...">
-        <!-- creates a submit button that triggers the form to send the player name to Flask-->
-        <button type="submit">Search</button>
-    </form>
+            <!-- search form that sends player name to Flask via GET request -->
+            <form class="search-form" action="/" method="GET">
+                <!-- input creates the text box, name="player_name" is how Flask identifies what the user typed, placeholder is the hint text shown before the user types anything -->
+                <input type="text" name="player_name" placeholder="Search for a player...">
+                <!-- creates a submit button that triggers the form to send the player name to Flask-->
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
 
     <!--
-        The content row keeps the current player result and the search history
-        beside each other on larger screens. CSS can stack these sections later
-        on small screens without changing the Flask data.
+        This main section is reserved for the current player result. Separating
+        it from Search History makes the searched player feel like the primary
+        result without changing any Flask data.
     -->
-    <div class="content-row"> 
-        <!--
-            The player card still uses the same player, team, sport, position,
-            and image values from app.py. The extra HTML groups the text so the
-            player's name is strongest and the details are easier to scan.
-        -->
-        <div class="player-card">
-            <div class="player-info">
-                <h2 class="player-name">{{ player }}</h2>
+    <main class="page-section featured-player-section">
+        <div class="section-inner">
+            <!--
+                The featured profile uses the same player data from app.py, but
+                places the image and text side by side so the current search
+                feels like the main result of the page.
+            -->
+            <div class="player-card">
+                <!--
+                    The image comes first in the markup because it is now the
+                    visual centerpiece on desktop. CSS will stack it above the
+                    text on smaller screens.
+                -->
+                <div class="player-photo">
+                    <img src="{{ cutout }}" alt="Player Photo">
+                </div>
 
                 <!--
-                    Each detail row adds a simple label next to the existing
-                    value. This makes the card clearer without adding any new
-                    information or backend logic.
+                    The text side keeps the player's name strongest, then shows
+                    the existing team, sport, and position values as supporting
+                    profile details.
                 -->
-                <div class="player-details">
-                    <p class="player-detail">
-                        <span class="detail-label">Team</span>
-                        <span class="detail-value">{{ team }}</span>
-                    </p>
-                    <p class="player-detail">
-                        <span class="detail-label">Sport</span>
-                        <span class="detail-value">{{ sport }}</span>
-                    </p>
-                    <p class="player-detail">
-                        <span class="detail-label">Position</span>
-                        <span class="detail-value">{{ position }}</span>
-                    </p>
+                <div class="player-info">
+                    <p class="player-eyebrow">Featured Athlete</p>
+                    <h2 class="player-name">{{ player }}</h2>
+                    <p class="player-team">{{ team }}</p>
+
+                    <!--
+                        These detail groups use only the existing template
+                        values. They separate labels from values so the facts
+                        are easy to scan without adding new backend logic.
+                    -->
+                    <div class="player-details">
+                        <div class="player-detail player-detail-full">
+                            <span class="detail-label">Team</span>
+                            <span class="detail-value">{{ team }}</span>
+                        </div>
+                        <div class="player-detail">
+                            <span class="detail-label">Sport</span>
+                            <span class="detail-value">{{ sport }}</span>
+                        </div>
+                        <div class="player-detail">
+                            <span class="detail-label">Position</span>
+                            <span class="detail-value">{{ position }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!--
-                The image still comes directly from TheSportsDB. Wrapping it in
-                a div gives CSS a clean place to control the image area.
-            -->
-            <div class="player-photo">
-                <img src="{{ cutout }}" alt="Player Photo">
-            </div>
         </div>
-        
+    </main>
+
+    <!--
+        Recent searches now live in their own full-width section. This keeps
+        the history useful while making it visually secondary to the current
+        player result.
+    -->
+    <section class="page-section recent-searches-section">
+        <div class="section-inner">
         <!--
             The search history section still loops through the same rows from
-            SQLite. Only the HTML presentation changes so each previous search
-            has a clearer primary line and secondary details.
+            SQLite. Only the HTML presentation changes so previous searches
+            feel like a lighter supporting list beneath the featured player.
         -->
         <div class="history-section"> 
-            <h2>Search History</h2>
+            <h2>Recent Searches</h2>
             {% for search in history %}
                 <!--
                     search[1] is the player name. search[2], search[3], and
                     search[4] are the team, sport, and position saved by the
-                    existing Flask route.
+                    existing Flask route. Each value gets its own small area so
+                    desktop rows are easier to compare from left to right.
                 -->
                 <div class="history-item">
-                    <strong class="history-player">{{ search[1] }}</strong>
-                    <span class="history-details">{{ search[2] }} &bull; {{ search[3] }} &bull; {{ search[4] }}</span>
+                    <div class="history-main">
+                        <strong class="history-player">{{ search[1] }}</strong>
+                        <span class="history-team">{{ search[2] }}</span>
+                    </div>
+                    <div class="history-meta">
+                        <span class="history-detail">{{ search[3] }}</span>
+                        <span class="history-detail">{{ search[4] }}</span>
+                    </div>
                 </div>
             {% endfor %}
         </div>
-    </div>
+        </div>
+    </section>
 
-<!--creates a frequently asked questions section and classes are made for style options in css-->
-<div class="faq-section">
-    <h2> Frequently Asked Questions</h2>
+    <!--
+        The FAQ stays as a simple static section. It is separated into its own
+        page region so it remains helpful but does not compete with the main
+        player search experience.
+    -->
+    <section class="page-section faq-section">
+        <div class="section-inner faq-inner">
+            <h2> Frequently Asked Questions</h2>
 
-    <div class="faq-item">
-        <h3>What sports are supported?</h3>
-        <p> We support a wide range of sports including Soccer, Basketball, Baseball, and more via TheSportsDB API.</p>
-    </div>
+            <!--
+                The FAQ list groups the existing questions into one lightweight
+                section. CSS can arrange these items in two columns on wider
+                screens and stack them naturally on phones.
+            -->
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>What sports are supported?</h3>
+                    <p> We support a wide range of sports including Soccer, Basketball, Baseball, and more via TheSportsDB API.</p>
+                </div>
 
-    <div class="faq-item">
-        <h3>How do I search for a player?</h3>
-        <p>Simply type a player's name in the search bar above and hit Search. Results will appear instantly</p>
-    </div>
+                <div class="faq-item">
+                    <h3>How do I search for a player?</h3>
+                    <p>Simply type a player's name in the search bar above and hit Search. Results will appear instantly</p>
+                </div>
 
-    <div class="faq-item">
-        <h3>Why is my player not showing up?</h3>
-        <p>The player may not be showing up in TheSportsDB database. Try searching for their full name.</p>
-    </div>
-</div>
-
-    </div>
+                <div class="faq-item">
+                    <h3>Why is my player not showing up?</h3>
+                    <p>The player may not be showing up in TheSportsDB database. Try searching for their full name.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

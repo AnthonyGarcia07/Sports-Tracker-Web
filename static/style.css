@@ -35,19 +35,11 @@ html {
 /* styles the entire page - background, text color, font, and layout */
 body {
     /*
-        This replaces the animated GIF with a calm layered background.
-        The first layer adds subtle sports-field style lines, while the
-        gradient underneath keeps the dark sports identity without movement.
+        A simple dark background fits the new full-width section layout better
+        than decorative field lines. The section backgrounds now provide the
+        visual structure, so the body can stay calm and easy to understand.
     */
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.035) 0,
-            rgba(255, 255, 255, 0.035) 1px,
-            transparent 1px,
-            transparent 120px
-        ),
-        linear-gradient(135deg, #07111f 0%, #0d1d33 55%, #111827 100%);
+    background-color: var(--page-background);
     color: var(--body-text);
     /*
         This system font stack uses fonts that are already available on most
@@ -59,38 +51,69 @@ body {
     margin: 0;
     min-height: 100vh;
     /*
-        The page padding keeps the main container away from the browser edges.
-        The smaller side padding helps the layout fit naturally on phones.
+        The body no longer has page padding because the design is now built
+        from full-width sections. Each section controls its own spacing so its
+        background can reach the browser edges.
     */
-    padding: 48px 20px;
+    padding: 0;
 }
 
-/* styles the container part of the html code */
-.container {
-    /*
-        max-width limits the application width on large monitors while width:
-        100% lets it shrink with the browser on smaller screens.
-    */
-    max-width: 1040px;
+/*
+    Each page section spans the full browser width. This is the key change from
+    the old single-container layout, where one large rounded panel held the
+    entire application.
+*/
+.page-section {
     width: 100%;
-    margin: 0 auto;
-    background-color: rgba(16, 27, 47, 0.96);
-    border: 1px solid var(--soft-border);
-    /*
-        This slightly smaller radius keeps the app polished without making the
-        whole page feel like one oversized rounded card.
-    */
-    border-radius: 14px;
-    /*
-        clamp() chooses a value between a minimum and maximum. Here it gives
-        smaller screens less padding and larger screens a little more space.
-    */
-    padding: clamp(24px, 4vw, 44px);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
+    padding: 56px 20px;
 }
 
-/* styles the h1 header file inside the container, which in this case is the Sports Tracker text */
-.container h1 {
+/*
+    The inner wrapper centers the content inside each full-width section.
+    max-width keeps text and cards readable on large monitors, while width:
+    100% allows the layout to shrink naturally on smaller screens.
+*/
+.section-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/*
+    The header section keeps the app identity and search action together at the
+    top of the page. The slightly larger bottom padding gives the search area
+    room before the player result begins.
+*/
+.header-section {
+    padding-top: 64px;
+    padding-bottom: 48px;
+}
+
+/*
+    Alternating section backgrounds create distinct page regions without
+    adding extra cards or complicated decoration.
+*/
+.featured-player-section {
+    background-color: rgba(16, 27, 47, 0.78);
+    border-top: 1px solid var(--soft-border);
+    border-bottom: 1px solid var(--soft-border);
+}
+
+.recent-searches-section {
+    background-color: rgba(7, 17, 31, 0.35);
+}
+
+/*
+    The FAQ section remains a full-width page region, while the FAQ-specific
+    max-width below keeps the question text comfortable to read.
+*/
+.faq-section {
+    background-color: rgba(16, 27, 47, 0.62);
+    border-top: 1px solid var(--soft-border);
+}
+
+/* styles the main page title inside the header section */
+.header-section h1 {
     text-align: center; /* centers the text */
     color: var(--heading-color);
     /*
@@ -128,7 +151,7 @@ body {
     gap: 12px;
     /*
         The form width is limited so the search area feels intentional on wide
-        screens, while width: 100% lets it shrink inside the main container.
+        screens, while width: 100% lets it shrink inside the section wrapper.
     */
     width: 100%;
     max-width: 620px;
@@ -216,79 +239,124 @@ body {
     box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.28);
 }
 
-/* styles the content row part of html, this is used so that we can put the player card and search history side by side, instead of one over the other */
-.content-row {
-    /*
-        Flexbox keeps the player card and history beside each other on wider
-        screens. align-items: flex-start prevents the shorter card from
-        stretching just because the history list may be taller.
-    */
-    display: flex;
-    align-items: flex-start;
-    gap: 32px;
-    margin-top: 8px;
-}
-
 /* styles the player card, which includes the Player Name, Team, Sport, and Position */
 .player-card {
-    background-color: var(--card-background);
     /*
-        This subtle border replaces some of the visual weight from the older
-        strong accent stripe while still separating the card from the panel.
+        The featured player card is now a horizontal profile instead of a
+        compact vertical card. Flexbox keeps the image and information beside
+        each other while still allowing them to stack on smaller screens.
     */
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    background-color: transparent;
     border: 1px solid var(--soft-border);
-    border-radius: 10px;
-    padding: 24px;
+    border-radius: 12px;
+    padding: 40px;
     /*
-        The player card keeps one share of the row, while the history section
-        keeps more space. min-width prevents the card from becoming unreadable
-        before the responsive layout stacks.
+        The subtle left border uses the accent color as a guide without making
+        the whole profile feel like a collection of smaller stat cards.
     */
-    flex: 1;
-    min-width: 280px;
+    border-left: 4px solid rgba(233, 69, 96, 0.85);
 }
 
 /*
-    This wrapper keeps the player's text grouped together above the image.
-    It also gives the card a simple vertical rhythm.
+    The image area gets a fixed share of the horizontal layout so the player
+    cutout can become prominent without pushing the text off the page.
+*/
+.player-photo {
+    flex: 0 1 42%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/*
+    The image itself keeps its natural shape. The width limit lets it grow much
+    larger than before while max-height prevents unusually tall images from
+    taking over the whole screen.
+*/
+.player-card img {
+    width: 100%;
+    max-width: 430px;
+    max-height: 520px;
+    object-fit: contain;
+    display: block;
+}
+
+/*
+    The text side uses the remaining horizontal space. min-width: 0 is helpful
+    in Flexbox because it allows long text to wrap instead of forcing overflow.
 */
 .player-info {
-    margin-bottom: 22px;
+    flex: 1;
+    min-width: 0;
+}
+
+/*
+    The eyebrow is a small orientation label. It tells the user this is the
+    current featured result without competing with the player's name.
+*/
+.player-eyebrow {
+    color: var(--accent-color);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin: 0 0 12px;
+    text-transform: uppercase;
 }
 
 /*
     The player's name is the main result, so this rule overrides the general
-    h2 divider style and lets the name stand on its own.
+    h2 divider style and gives the name a larger profile-style size.
 */
 .player-card .player-name {
     border-bottom: none;
     padding-bottom: 0;
-    margin-bottom: 18px;
-    font-size: 1.75rem;
+    margin: 0 0 10px;
+    font-size: 3rem;
+    line-height: 1.05;
 }
 
 /*
-    The details group keeps team, sport, and position connected as one set of
-    facts instead of leaving them as unrelated lines.
+    The team appears directly under the name as the player's secondary
+    identity, similar to how a sports profile page introduces an athlete.
+*/
+.player-team {
+    color: var(--muted-text);
+    font-size: 1.2rem;
+    margin: 0 0 32px;
+}
+
+/*
+    The detail area stays simple and uses Flexbox wrapping. The full-width team
+    item sits first, while sport and position can sit beside each other when
+    there is room.
 */
 .player-details {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 18px;
 }
 
 /*
-    Each detail row uses Flexbox so the label and value line up clearly.
-    justify-content: space-between pushes the value to the right when there is
-    room, but the row can still wrap naturally if the text is long.
+    Each profile detail is intentionally quiet: a small label and a stronger
+    value. The bottom border gives structure without creating dashboard-style
+    boxes.
 */
 .player-detail {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    flex: 1 1 180px;
     margin: 0;
-    padding: 10px 0;
+    padding-bottom: 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/*
+    The team detail takes the full row so the main identity can breathe before
+    the smaller sport and position facts.
+*/
+.player-detail-full {
+    flex-basis: 100%;
 }
 
 /*
@@ -296,47 +364,22 @@ body {
     not the main information the user searched for.
 */
 .detail-label {
+    display: block;
     color: var(--muted-text);
     font-size: 0.85rem;
     font-weight: 700;
+    margin-bottom: 4px;
     text-transform: uppercase;
 }
 
 /*
     The value is stronger than the label because it is the actual player data.
-    On wide screens it aligns to the right edge for a tidy two-column feel.
 */
 .detail-value {
-    color: var(--heading-color);
-    font-weight: 600;
-    text-align: right;
-}
-
-/*
-    The photo wrapper creates a consistent image area so different player
-    cutouts feel contained inside the same card design.
-*/
-.player-photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 260px;
-    background-color: rgba(7, 17, 31, 0.38);
-    border: 1px solid var(--soft-border);
-    border-radius: 8px;
-    padding: 16px;
-}
-
-/* styles the image inside of the player card */
-.player-card img {
-    /*
-        max-width keeps large images from overflowing the card, while the fixed
-        height keeps the photo area stable from player to player.
-    */
-    max-width: 100%;
-    height: 250px;
-    object-fit: contain;
     display: block;
+    color: var(--heading-color);
+    font-size: 1.05rem;
+    font-weight: 600;
 }
 
 /*
@@ -346,21 +389,21 @@ body {
 .player-name,
 .detail-value,
 .history-player,
-.history-details {
+.history-team,
+.history-detail {
     overflow-wrap: anywhere;
 }
 
 /* styles the history section */
 .history-section {
     /*
-        The history needs more horizontal room because each row contains
-        multiple pieces of text. Keeping it scrollable preserves the current
-        behavior when there are many saved searches.
+        Recent Searches is a supporting section, so the wrapper is quieter than
+        the featured player. The scroll behavior stays because the backend
+        still provides the same recent history list.
     */
-    flex: 2;
-    max-height: 520px;
+    max-height: 460px;
     overflow-y: auto;
-    padding-right: 4px;
+    padding-right: 8px;
     /*
         These two scrollbar properties are supported by Firefox. They keep the
         scroll area from looking bright against the dark interface while staying
@@ -395,16 +438,34 @@ body {
 
 /* styles the history items, (the text inside of the history section) */
 .history-item {
-    background-color: var(--card-background);
-    border: 1px solid var(--soft-border);
-    border-radius: 8px;
     /*
-        Using block layout here keeps each history entry simple: player name
-        on top, supporting details underneath.
+        Each history row uses Flexbox so desktop screens can compare player,
+        team, sport, and position in one scan. A bottom border separates rows
+        without making each entry feel like a separate card.
     */
-    display: block;
-    padding: 13px 15px;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--soft-border);
+}
+
+/*
+    The last row does not need a divider beneath it because there is no next
+    item to separate it from.
+*/
+.history-item:last-child {
+    border-bottom: none;
+}
+
+/*
+    The left side contains the player name and team because those two pieces of
+    information usually identify the search most quickly.
+*/
+.history-main {
+    flex: 1 1 45%;
+    min-width: 0;
 }
 
 /*
@@ -414,24 +475,47 @@ body {
 .history-player {
     display: block;
     color: var(--heading-color);
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.3;
     margin-bottom: 4px;
 }
 
 /*
-    The details stay smaller and muted so the user can scan names first, then
-    read the extra context only when needed.
+    The team is secondary to the searched player name, so it stays muted and
+    slightly smaller.
 */
-.history-details {
+.history-team {
     display: block;
     color: var(--muted-text);
     font-size: 0.88rem;
     line-height: 1.4;
 }
 
-/* styles all h2 header files inside of the div class container */
-.container h2 {
+/*
+    The right side groups sport and position. Flexbox keeps the two values
+    aligned on desktop, but the mobile media query below lets them stack.
+*/
+.history-meta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 28px;
+    flex: 1 1 45%;
+    min-width: 0;
+}
+
+/*
+    These smaller detail values are intentionally quiet so Recent Searches does
+    not compete with the featured athlete profile above it.
+*/
+.history-detail {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: right;
+}
+
+/* styles section headings that appear inside the centered wrappers */
+.section-inner h2 {
     color: var(--heading-color);
     /*
         A thinner, softer divider keeps the accent color present without
@@ -444,55 +528,50 @@ body {
     line-height: 1.25;
 }
 
-/* styles the faq section part of the program */
+/* styles the FAQ section width behavior */
 .faq-section {
     /*
-        The FAQ sits below the main result area, so it needs a larger top
-        margin than smaller items inside a section. max-width keeps the text
-        comfortably readable even though the main container is wider.
+        The outer FAQ section should span the browser width like the other
+        sections. The narrower readable width is handled by .faq-inner instead.
     */
-    margin-top: 64px;
-    max-width: 820px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* styles the faq-item section of html, specifically the header file and the paragraph inside each container */
-.faq-item {
-    background-color: var(--card-background);
-    /*
-        The FAQ now uses the same soft border style as the player card and
-        history rows. A small top border keeps the accent color present without
-        repeating a heavy stripe on every card.
-    */
-    border: 1px solid var(--soft-border);
-    border-top: 3px solid rgba(233, 69, 96, 0.65);
-    border-radius: 10px;
-    padding: 22px;
-    margin-bottom: 14px;
-    /*
-        The transition supports a subtle hover state below. Only color-related
-        properties change, so the cards do not jump or shift on hover.
-    */
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    max-width: none;
 }
 
 /*
-    This hover state gives a little feedback when someone explores the FAQ with
-    a mouse, while keeping the section calm and static.
+    The FAQ inner wrapper is narrower than the other section wrappers because
+    long question-and-answer text is easier to read in shorter line lengths.
 */
-.faq-item:hover {
-    background-color: #162b49;
-    border-color: rgba(255, 255, 255, 0.14);
-    border-top-color: rgba(233, 69, 96, 0.85);
+.faq-inner {
+    max-width: 820px;
+}
+
+/*
+    The FAQ list is intentionally lighter than the featured player and Recent
+    Searches sections. Flexbox allows two columns on wider screens without
+    needing CSS Grid, and the items can still stack when space is limited.
+*/
+.faq-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 36px;
+}
+
+/*
+    FAQ items use separators instead of heavy cards. This keeps the answers
+    readable while making the section feel secondary.
+*/
+.faq-item {
+    flex: 1 1 320px;
+    padding: 20px 0;
+    border-top: 1px solid var(--soft-border);
 }
 
 /* styles specifically the h3 header files in faq-item */
 .faq-item h3 {
     color: var(--heading-color);
     /*
-        Removing the browser's default top margin makes each FAQ heading align
-        more neatly inside its card.
+        Removing the browser's default top margin makes each FAQ question align
+        neatly with the separator above it.
     */
     margin: 0 0 8px;
     font-size: 1.08rem;
@@ -503,8 +582,8 @@ body {
 .faq-item p {
     color: var(--muted-text);
     /*
-        Removing the default paragraph margin keeps the spacing inside each FAQ
-        card controlled by the card padding instead of browser defaults.
+        Removing the default paragraph margin keeps the answer spacing
+        controlled by the FAQ item itself instead of browser defaults.
     */
     margin: 0;
     line-height: 1.65;
@@ -516,13 +595,57 @@ body {
     squeezed on tablets or narrow laptop windows.
 */
 @media (max-width: 820px) {
-    .content-row {
+    /*
+        The featured profile stacks when the horizontal layout would become
+        cramped. This keeps the athlete image prominent without forcing side
+        scrolling on tablets or phones.
+    */
+    .player-card {
         flex-direction: column;
+        align-items: stretch;
+        gap: 28px;
     }
 
-    .player-card,
+    .player-photo {
+        flex-basis: auto;
+    }
+
+    .player-card img {
+        max-width: 340px;
+        margin: 0 auto;
+    }
+
     .history-section {
         width: 100%;
+    }
+
+    /*
+        History rows stack their supporting details underneath the player/team
+        group at tablet and phone widths, keeping the list readable without
+        forcing four columns into a small space.
+    */
+    .history-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .history-meta {
+        justify-content: flex-start;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .history-detail {
+        text-align: left;
+    }
+
+    /*
+        At narrower widths, each FAQ item takes the full row so questions and
+        answers remain easy to read.
+    */
+    .faq-item {
+        flex-basis: 100%;
     }
 }
 
@@ -532,11 +655,11 @@ body {
     full page comfortable on phones.
 */
 @media (max-width: 700px) {
-    body {
-        padding: 24px 14px;
+    .page-section {
+        padding: 40px 14px;
     }
 
-    .container h1 {
+    .header-section h1 {
         font-size: 2.1rem;
     }
 
@@ -566,26 +689,21 @@ body {
         On narrow screens left-aligned values are easier to read because there
         is less horizontal space for a two-column detail row.
     */
-    .player-detail {
-        display: block;
+    .player-card {
+        padding: 28px;
     }
 
-    .detail-value {
-        display: block;
-        text-align: left;
-        margin-top: 2px;
+    .player-card .player-name {
+        font-size: 2.35rem;
     }
 
-    /*
-        A shorter photo area saves vertical space on phones while object-fit
-        still keeps the player image from being cropped.
-    */
-    .player-photo {
-        min-height: 220px;
+    .player-team {
+        font-size: 1.05rem;
+        margin-bottom: 26px;
     }
 
     .player-card img {
-        height: 210px;
+        max-height: 380px;
     }
 }
 
@@ -594,20 +712,20 @@ body {
     feels comfortable without requiring horizontal scrolling.
 */
 @media (max-width: 480px) {
-    body {
-        padding: 16px 10px;
+    .page-section {
+        padding: 32px 10px;
     }
 
-    .container {
-        padding: 20px;
-    }
-
-    .player-card,
-    .faq-item {
+    .player-card {
         padding: 18px;
     }
 
-    .faq-section {
-        margin-top: 48px;
+    /*
+        The player card has a desktop minimum width so it does not get too
+        narrow beside other content. On very small screens, that minimum is
+        removed so the card can fit the available phone width.
+    */
+    .player-card {
+        min-width: 0;
     }
 }
