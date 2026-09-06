@@ -118,32 +118,102 @@ body {
 
 /* styles the entire search form */
 .search-form {
-    text-align: center; /* centers the search form */
     /*
-        This creates a clear break between the search area and the results
-        area without changing the search form design yet.
+        Flexbox lets the input and button sit neatly on one line while gap
+        controls the space between them. This keeps the search area centered
+        without needing fixed margins on the individual form controls.
     */
-    margin-bottom: 38px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    /*
+        The form width is limited so the search area feels intentional on wide
+        screens, while width: 100% lets it shrink inside the main container.
+    */
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto 40px;
 }
 
 /* styles the search form input text box */
 .search-form input {
-    padding: 10px; /* the space inside the text */ 
-    width: 300px; /* how wide the input text box will be */
-    border-radius: 5px; /* how curved the edges of the text box are */
-    border: none; /* removes the border */
-    font-size: 1rem; /* size of the font inside the input text box */
+    /*
+        flex: 1 lets the input use the open space next to the button. The
+        min-width prevents it from becoming too tiny before the mobile layout
+        stacks the controls.
+    */
+    flex: 1;
+    min-width: 260px;
+    padding: 13px 16px;
+    background-color: rgba(7, 17, 31, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    color: var(--heading-color);
+    font: inherit;
+    font-size: 1rem;
+    /*
+        outline: none removes the browser's default focus ring here because a
+        custom focus style is added below. The replacement is still visible for
+        keyboard users.
+    */
+    outline: none;
+}
+
+/*
+    Placeholder text should be readable but quieter than real typed text, so
+    users can easily tell the hint apart from their search.
+*/
+.search-form input::placeholder {
+    color: #8492a8;
+}
+
+/*
+    :focus-visible appears when a user reaches the input with the keyboard.
+    It gives a clear accessibility cue without making mouse clicks feel busy.
+*/
+.search-form input:focus-visible {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.22);
 }
 
 /* styles the search form button */
 .search-form button {
-    padding: 10px 20px; /* adjusts the height and width of the search form button */
+    /*
+        Matching the vertical padding and border radius with the input makes
+        the two controls feel like one polished search area.
+    */
+    padding: 13px 24px;
     background-color: var(--accent-color); /* give the search form button a bright red color */
     color: white; /* gives the text inside the search form button a white color */
-    border: none; /* removes the border around the button */
-    border-radius: 5px; /* how curved the edges of the button are */
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
     cursor: pointer; /* changes the mouse cursor to a pointing hand icon when hovering over the button */
-    font-size: 1rem; /* size of the font inside the search form button */
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    /*
+        A short transition makes the hover/focus change feel smooth while
+        keeping the interaction simple and easy to understand.
+    */
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*
+    The hover state gives mouse users feedback that the button is clickable.
+    The darker accent keeps the design restrained instead of flashy.
+*/
+.search-form button:hover {
+    background-color: #d63b55;
+    border-color: #d63b55;
+}
+
+/*
+    The button receives the same visible keyboard focus treatment as the input
+    so both search controls are easy to use without a mouse.
+*/
+.search-form button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.28);
 }
 
 /* styles the content row part of html, this is used so that we can put the player card and search history side by side, instead of one over the other */
@@ -261,5 +331,22 @@ body {
     .subtitle {
         font-size: 1rem;
         margin-bottom: 28px;
+    }
+
+    /*
+        On narrow screens the form stacks vertically so the input and button
+        stay comfortable to tap instead of being squeezed onto one row.
+    */
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .search-form button {
+        width: 100%;
     }
 }
